@@ -27,11 +27,11 @@ async function syncGroup(urls, folder, manifest, errors) {
     try {
       await download(url, localPath);
       manifest[url] = { localPath, remoteUrl: url, ok: true };
-      console.log(`Baixado: ${localPath}`);
+      console.log(`Downloaded: ${localPath}`);
     } catch (error) {
       manifest[url] = { localPath, remoteUrl: url, ok: false, error: error.message };
       errors.push(`${url}: ${error.message}`);
-      console.warn(`Falha ao baixar ${url}: ${error.message}`);
+      console.warn(`Failed to download ${url}: ${error.message}`);
     }
   }
 }
@@ -52,8 +52,8 @@ async function main() {
     assets: manifest,
   });
 
-  console.log(`Recursos catalogados: ${Object.keys(manifest).length}`);
-  console.log(`Falhas com fallback remoto: ${errors.length}`);
+  console.log(`Assets cataloged: ${Object.keys(manifest).length}`);
+  console.log(`Failures using remote fallback: ${errors.length}`);
 }
 
 main().catch((error) => {

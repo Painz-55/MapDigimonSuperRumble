@@ -5,7 +5,6 @@ import { loadDsrData } from '../services/dataLoader'
 interface DataContextValue {
   data: NormalizedData | null
   locale: Locale
-  setLocale: (locale: Locale) => void
   loading: boolean
   error: string | null
 }
@@ -14,7 +13,7 @@ const DataContext = createContext<DataContextValue | null>(null)
 const dataCache = new Map<Locale, NormalizedData>()
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>('pt-BR')
+  const [locale] = useState<Locale>('en-US')
   const [data, setData] = useState<NormalizedData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -50,7 +49,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [locale])
 
   const value = useMemo(
-    () => ({ data, locale, setLocale, loading, error }),
+    () => ({ data, locale, loading, error }),
     [data, error, loading, locale],
   )
 
@@ -59,6 +58,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
 export function useDsrData(): DataContextValue {
   const value = useContext(DataContext)
-  if (!value) throw new Error('useDsrData deve ser usado dentro de DataProvider.')
+  if (!value) throw new Error('useDsrData must be used inside DataProvider.')
   return value
 }

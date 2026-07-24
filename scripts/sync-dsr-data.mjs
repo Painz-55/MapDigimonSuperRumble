@@ -13,10 +13,10 @@ async function main() {
   const [maps, digimons] = await Promise.all([fetchJson(MAP_URL), fetchJson(DIGIMON_URL)]);
 
   if (!maps || typeof maps !== 'object' || Array.isArray(maps)) {
-    throw new Error('map.json deve ser um objeto indexado por nome de mapa.');
+    throw new Error('map.json must be an object indexed by map name.');
   }
   if (!digimons || typeof digimons !== 'object' || Array.isArray(digimons)) {
-    throw new Error('digimon.json deve ser um objeto indexado por nome de Digimon.');
+    throw new Error('digimon.json must be an object indexed by Digimon name.');
   }
 
   const manifest = buildDataManifest(maps, digimons);
@@ -24,10 +24,10 @@ async function main() {
   await writeJson(DIGIMON_PATH, digimons);
   await writeJson(DATA_MANIFEST_PATH, manifest);
 
-  console.log(`Mapas sincronizados: ${manifest.mapCount}`);
-  console.log(`Spawns sincronizados: ${manifest.totalSpawnCount}`);
-  console.log(`Digimons unicos nos mapas: ${manifest.uniqueDigimonCount}`);
-  console.log(`Nivel: ${manifest.minLevel} a ${manifest.maxLevel}`);
+  console.log(`Maps synchronized: ${manifest.mapCount}`);
+  console.log(`Spawns synchronized: ${manifest.totalSpawnCount}`);
+  console.log(`Unique Digimons on maps: ${manifest.uniqueDigimonCount}`);
+  console.log(`Level range: ${manifest.minLevel} to ${manifest.maxLevel}`);
 }
 
 main().catch((error) => {

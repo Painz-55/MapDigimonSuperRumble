@@ -2,8 +2,8 @@ export function LoadingState() {
   return (
     <div className="state state--loading" role="status" aria-live="polite">
       <span className="spinner" />
-      <strong>Carregando dados reais do DSR...</strong>
-      <p>Usando as copias locais sincronizadas em public/data.</p>
+      <strong>Loading real DSR data...</strong>
+      <p>Using the synchronized local copies from public/data.</p>
     </div>
   )
 }
@@ -11,9 +11,9 @@ export function LoadingState() {
 export function ErrorState({ message }: { message: string }) {
   return (
     <div className="state state--error" role="alert">
-      <strong>Nao foi possivel abrir o mapa.</strong>
+      <strong>The map could not be opened.</strong>
       <p>{message}</p>
-      <p>Execute npm run sync-data para atualizar a copia local dos dados.</p>
+      <p>Run npm run sync-data to refresh the local data copy.</p>
     </div>
   )
 }

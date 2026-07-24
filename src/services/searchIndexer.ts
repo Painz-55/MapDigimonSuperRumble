@@ -17,6 +17,7 @@ export function buildSearchHaystack(summary: DigimonSummary, locale: Locale): st
     ...summary.maps,
     ...summary.maps.map((map) => getLocalizedMapName(map, locale)),
     ...summary.items,
+    ...summary.originalItems,
     ...summary.types,
     ...summary.attributes,
   ]

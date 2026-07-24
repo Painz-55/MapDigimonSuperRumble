@@ -1,38 +1,39 @@
-# Fonte e normalizacao dos dados
+# Data Source And Normalization
 
-Este projeto usa os dados publicos do repositorio `dsr1111/dsr`, espelhados em:
+This project uses public data from `dsr1111/dsr`, mirrored at:
 
 - `https://media.dsrwiki.com/data/csv/map.json`
 - `https://media.dsrwiki.com/data/csv/digimon.json`
 
-As copias usadas pela aplicacao publicada ficam em `public/data/map.json` e `public/data/digimon.json`.
+The published application reads local copies from `public/data/map.json` and `public/data/digimon.json`.
 
-## Inspecao de 2026-07-24
+## Inspection On 2026-07-24
 
-- Mapas carregados: 27
-- Registros de spawn em `mobs`: 254
-- Digimons unicos encontrados nos mapas: 110
-- Entradas em `digimon.json`: 357
-- Menor nivel encontrado: 2
-- Maior nivel encontrado: 102
-- Spawns agressivos: 17
-- Eventos de evolucao: 6
-- Mapas sem monstros: `???`, `테이머의 집`
+- Maps loaded: 27
+- Spawn records in `mobs`: 254
+- Unique Digimons found on maps: 110
+- Entries in `digimon.json`: 357
+- Lowest level found: 2
+- Highest level found: 102
+- Aggressive spawns: 17
+- Evolution events: 6
+- Maps without monsters: `???`, `테이머의 집`
 
-## Formatos observados
+## Observed Formats
 
-Cada mapa e indexado pelo nome original coreano e possui `backgroundImage`. Os arrays opcionais encontrados sao
-`portals`, `warps`, `shops`, `overflows`, `dungeon`, `datacube` e `mobs`.
+Each map is indexed by its original Korean name and has `backgroundImage`. Optional arrays observed in the source are
+`portals`, `warps`, `shops`, `overflows`, `dungeon`, `datacube`, and `mobs`.
 
-Marcadores usam `id`, `tooltip`, `top`, `left` e `src`. Spawns de monstros usam `id`, `name`, `top`, `left`, `src`,
-`level`, `hp`, `items` e, opcionalmente, `isAggressive` e `evol`.
+Utility markers use `id`, `tooltip`, `top`, `left`, and `src`. Monster spawns use `id`, `name`, `top`, `left`, `src`,
+`level`, `hp`, `items`, and optionally `isAggressive` and `evol`.
 
-## Decisoes
+## Decisions
 
-- A chave coreana do mapa nunca e modificada.
-- O agrupamento por regiao usa a lista oficial do pedido; mapas novos entram automaticamente em "Outros mapas".
-- Cada entrada de `mobs` vira um spawn independente. Entradas repetidas representam pontos diferentes e sao preservadas.
-- O ID estavel do spawn inclui mapa, monstro, nivel, coordenadas e indice original.
-- Coordenadas usam a area fixa 700 x 700, aplicando `top` e `left` sem recalculo.
-- `digimon.json` complementa os spawns quando o nome da especie existe na base.
-- Imagens locais baixadas por `sync-assets` sao preferidas quando presentes, com fallback para a URL remota.
+- Original Korean map keys are never modified.
+- Region grouping uses the requested canonical list; new maps are automatically placed under "Other Maps".
+- Every `mobs` entry becomes an independent spawn. Repeated entries represent distinct locations and are preserved.
+- Stable spawn IDs include map, monster, level, coordinates, and original index.
+- Coordinates use the fixed 700 x 700 source area, applying `top` and `left` without recalculation.
+- `digimon.json` enriches spawns when the species name exists in the database.
+- Digimon names, map labels, UI labels, types, and known item names are displayed in English.
+- Local images downloaded by `sync-assets` are preferred when present, with remote URLs as fallback.

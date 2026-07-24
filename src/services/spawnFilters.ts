@@ -38,7 +38,7 @@ export function filterSpawns(
     ) {
       return false
     }
-    if (item && !normalizeSearchText(spawn.items.join(' ')).includes(item)) return false
+    if (item && !normalizeSearchText(`${spawn.displayItems.join(' ')} ${spawn.items.join(' ')}`).includes(item)) return false
     if (type && !normalizeSearchText(typeof spawn.details?.type === 'string' ? spawn.details.type : '').includes(type)) {
       return false
     }

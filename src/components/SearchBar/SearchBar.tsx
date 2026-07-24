@@ -20,9 +20,9 @@ export function SearchBar({ data, locale }: SearchBarProps) {
         <Search size={18} aria-hidden="true" />
         <input
           value={query}
-          placeholder="Buscar Digimon, mapa, item ou ID..."
+          placeholder="Search Digimon, map, item, or ID..."
           onChange={(event) => setQuery(event.target.value)}
-          aria-label="Busca global"
+          aria-label="Global search"
         />
       </label>
       {query ? (
@@ -39,13 +39,13 @@ export function SearchBar({ data, locale }: SearchBarProps) {
                 <span>
                   <strong>{summary.name}</strong>
                   <small>
-                    {summary.mapCount} mapas, {summary.spawnCount} spawns, Lv. {summary.minLevel}-{summary.maxLevel}
+                    {summary.mapCount} maps, {summary.spawnCount} spawns, Lv. {summary.minLevel}-{summary.maxLevel}
                   </small>
                 </span>
               </Link>
             ))
           ) : (
-            <div className="search-result search-result--empty">Nenhum resultado encontrado</div>
+            <div className="search-result search-result--empty">No results found</div>
           )}
         </div>
       ) : null}

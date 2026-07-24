@@ -117,7 +117,7 @@ export function MapPage() {
     })),
     {
       key: otherRegion.key,
-      label: otherRegion.pt,
+      label: otherRegion.en,
       maps: data.maps.filter((map) => map.regionKey === otherRegion.key),
     },
   ].filter((group) => group.maps.length)
@@ -156,14 +156,14 @@ export function MapPage() {
       <aside className="sidebar">
         <section className="panel">
           <div className="panel__header">
-            <h1>Mapas</h1>
-            <button className="icon-button" type="button" aria-label="Favoritar mapa" onClick={favoriteCurrentMap}>
+            <h1>Maps</h1>
+            <button className="icon-button" type="button" aria-label="Toggle favorite map" onClick={favoriteCurrentMap}>
               <Star size={18} fill={favorites.includes(currentMap.key) ? 'currentColor' : 'none'} />
             </button>
           </div>
           <div className="select-grid">
             <label>
-              Regiao
+              Region
               <select
                 value={currentMap.regionKey}
                 onChange={(event) => {
@@ -179,7 +179,7 @@ export function MapPage() {
               </select>
             </label>
             <label>
-              Mapa
+              Map
               <select value={currentMap.key} onChange={(event) => selectMap(event.target.value)}>
                 {groupedMaps.map((group) => (
                   <optgroup key={group.key} label={group.label}>
@@ -195,23 +195,23 @@ export function MapPage() {
           </div>
           <div className="map-nav-buttons">
             <button type="button" disabled={currentIndex <= 0} onClick={() => selectMap(data.maps[currentIndex - 1].key)}>
-              <ChevronLeft size={16} /> Anterior
+              <ChevronLeft size={16} /> Previous
             </button>
             <button
               type="button"
               disabled={currentIndex >= data.maps.length - 1}
               onClick={() => selectMap(data.maps[currentIndex + 1].key)}
             >
-              Proximo <ChevronRight size={16} />
+              Next <ChevronRight size={16} />
             </button>
           </div>
           <label className="check-row">
             <input type="checkbox" checked={keepMarkersReadable} onChange={(event) => setKeepMarkersReadable(event.target.checked)} />
-            <span>Manter marcadores legiveis</span>
+            <span>Keep markers readable</span>
           </label>
           <label className="check-row">
             <input type="checkbox" checked={dragEnabled} onChange={(event) => setDragEnabled(event.target.checked)} />
-            <span>Arrastar mapa</span>
+            <span>Drag map</span>
           </label>
         </section>
 
@@ -225,7 +225,7 @@ export function MapPage() {
         />
 
         <section className="panel compact-list">
-          <h2>Conectados por portal</h2>
+          <h2>Portal connections</h2>
           {portalTargets.length ? (
             portalTargets.map(({ marker, target, tooltip }) => (
               <button key={marker.markerId} type="button" disabled={!target} onClick={() => target && selectMap(target.key)}>
@@ -233,15 +233,15 @@ export function MapPage() {
               </button>
             ))
           ) : (
-            <p>Nenhum destino identificado nos tooltips.</p>
+            <p>No target could be identified from the tooltips.</p>
           )}
-          <h2>Favoritos</h2>
+          <h2>Favorites</h2>
           {favorites.map((key) => (
             <button key={key} type="button" onClick={() => selectMap(key)}>
               {data.mapByKey.get(key)?.localizedName ?? key}
             </button>
           ))}
-          <h2>Recentes</h2>
+          <h2>Recent</h2>
           {recents.map((key) => (
             <button key={key} type="button" onClick={() => selectMap(key)}>
               {data.mapByKey.get(key)?.localizedName ?? key}

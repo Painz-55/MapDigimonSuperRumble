@@ -12,8 +12,8 @@ export function DigimonDetailsPage() {
     return (
       <main className="page-shell">
         <div className="state">
-          <strong>Digimon nao encontrado.</strong>
-          <Link to="/digimons">Voltar ao indice</Link>
+          <strong>Digimon not found.</strong>
+          <Link to="/digimons">Back to index</Link>
         </div>
       </main>
     )
@@ -28,19 +28,19 @@ export function DigimonDetailsPage() {
         <div>
           <h1>{summary.name}</h1>
           <p>
-            {summary.spawnCount} spawns em {summary.mapCount} mapas. Niveis {summary.levels.join(', ')}.
+            {summary.spawnCount} spawns across {summary.mapCount} maps. Levels {summary.levels.join(', ')}.
           </p>
           <div className="chip-list">
             {summary.types.map((type) => <span key={type}>{type}</span>)}
             {summary.attributes.map((attribute) => <span key={attribute}>{attribute}</span>)}
-            {summary.hasAggressive ? <span>Agressivo</span> : null}
-            {summary.hasEvolution ? <span>Evento de evolucao</span> : null}
+            {summary.hasAggressive ? <span>Aggressive</span> : null}
+            {summary.hasEvolution ? <span>Evolution event</span> : null}
           </div>
         </div>
       </header>
 
       <section className="panel">
-        <h2>Informacoes do digimon.json</h2>
+        <h2>digimon.json information</h2>
         <dl className="details-grid">
           {detailEntries.length ? (
             detailEntries.map(([key, value]) => (
@@ -51,31 +51,31 @@ export function DigimonDetailsPage() {
             ))
           ) : (
             <div>
-              <dt>Fonte</dt>
-              <dd>Nenhuma informacao escalar adicional encontrada.</dd>
+              <dt>Source</dt>
+              <dd>No additional scalar information found.</dd>
             </div>
           )}
         </dl>
       </section>
 
       <section className="panel">
-        <h2>Itens relacionados</h2>
+        <h2>Related items</h2>
         <div className="chip-list">{summary.items.map((item) => <span key={item}>{item}</span>)}</div>
       </section>
 
       <section className="spawn-table panel">
-        <h2>Todas as aparicoes</h2>
+        <h2>All appearances</h2>
         <div className="responsive-table">
           <table>
             <thead>
               <tr>
-                <th>Mapa</th>
-                <th>Regiao</th>
-                <th>Nivel</th>
+                <th>Map</th>
+                <th>Region</th>
+                <th>Level</th>
                 <th>HP</th>
                 <th>Tipo</th>
                 <th>Coordenadas</th>
-                <th>Abrir</th>
+                <th>Open</th>
               </tr>
             </thead>
             <tbody>
@@ -85,10 +85,10 @@ export function DigimonDetailsPage() {
                   <td>{spawn.localizedRegionName}</td>
                   <td>{spawn.level}</td>
                   <td>{spawn.hp}</td>
-                  <td>{spawn.isAggressive ? 'Agressivo' : spawn.evol ? 'Evolucao' : 'Comum'}</td>
+                  <td>{spawn.isAggressive ? 'Aggressive' : spawn.evol ? 'Evolution' : 'Common'}</td>
                   <td>{Math.round(spawn.left)}, {Math.round(spawn.top)}</td>
                   <td>
-                    <Link to={buildMapUrl(spawn)}>Ver no mapa</Link>
+                    <Link to={buildMapUrl(spawn)}>View on map</Link>
                   </td>
                 </tr>
               ))}

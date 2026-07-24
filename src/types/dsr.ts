@@ -98,6 +98,7 @@ export interface NormalizedSpawn extends MonsterSpawn {
   displayName: string
   displayId: string
   displayEvolutionName?: string
+  displayItems: string[]
   mapKey: string
   mapName: string
   regionKey: string
@@ -140,6 +141,7 @@ export interface DigimonSummary {
   types: string[]
   attributes: string[]
   items: string[]
+  originalItems: string[]
   spawns: NormalizedSpawn[]
   details?: DigimonDetails
 }

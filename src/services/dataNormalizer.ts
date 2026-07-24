@@ -1,4 +1,5 @@
 import { knownRegions, mapToRegion, otherRegion } from '../data/mapRegions'
+import { translateDigimonType, translateItemName, translateMarkerTooltip } from '../data/gameTextTranslations'
 import { getLocalizedMapName, getLocalizedMonsterName, getLocalizedRegionName } from '../i18n'
 import type {
   AssetsManifest,
@@ -84,6 +85,7 @@ export function normalizeData(
         displayName,
         displayId: getLocalizedMonsterName(spawn.id),
         displayEvolutionName: spawn.evol ? getLocalizedMonsterName(spawn.evol) : undefined,
+        displayItems: spawn.items.map(translateItemName),
         mapKey,
         mapName: mapKey,
         regionKey: regionInfo.regionKey,
@@ -105,7 +107,7 @@ export function normalizeData(
           markerId: `${mapKey}:${kind}:${marker.id}:${marker.top}:${marker.left}:${index}`,
           mapKey,
           kind,
-          tooltip: stripHtml(marker.tooltip),
+          tooltip: translateMarkerTooltip(stripHtml(marker.tooltip)),
         }),
       ),
     )
@@ -153,7 +155,7 @@ export function buildDigimonSummaries(
       const levels = [...new Set(entries.map((spawn) => spawn.level))].sort((a, b) => a - b)
       const hps = entries.map((spawn) => spawn.hp)
       const details = entries.find((spawn) => spawn.details)?.details ?? sourceDigimons[speciesKey]
-      const type = typeof details?.type === 'string' ? details.type : undefined
+      const type = typeof details?.type === 'string' ? translateDigimonType(details.type) : undefined
       const attribute = getDigimonAttribute(details)
       return {
         speciesKey,
@@ -173,7 +175,8 @@ export function buildDigimonSummaries(
         hasEvolution: entries.some((spawn) => Boolean(spawn.evol)),
         types: type ? [type] : [],
         attributes: attribute ? [attribute] : [],
-        items: [...new Set(entries.flatMap((spawn) => spawn.items))].sort((a, b) => a.localeCompare(b)),
+        items: [...new Set(entries.flatMap((spawn) => spawn.displayItems))].sort((a, b) => a.localeCompare(b)),
+        originalItems: [...new Set(entries.flatMap((spawn) => spawn.items))].sort((a, b) => a.localeCompare(b)),
         spawns: entries,
         details,
       }

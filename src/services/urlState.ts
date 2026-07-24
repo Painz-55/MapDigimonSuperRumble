@@ -11,7 +11,7 @@ export function buildMapUrl(spawn: NormalizedSpawn, state?: Partial<MapViewerSta
   if (typeof state?.positionX === 'number') params.set('x', Math.round(state.positionX).toString())
   if (typeof state?.positionY === 'number') params.set('y', Math.round(state.positionY).toString())
   if (state?.visibleLayers) params.set('layers', serializeLayers(state.visibleLayers))
-  return `/mapa?${params.toString()}`
+  return `/map?${params.toString()}`
 }
 
 export function serializeLayers(layers: VisibleLayers): string {

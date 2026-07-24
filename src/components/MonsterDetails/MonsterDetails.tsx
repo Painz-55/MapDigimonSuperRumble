@@ -12,7 +12,7 @@ interface MonsterDetailsProps {
 }
 
 function valueList(values: string[] | undefined) {
-  if (!values?.length) return 'Nao informado'
+  if (!values?.length) return 'Not listed'
   return values.join(', ')
 }
 
@@ -20,8 +20,8 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
   if (!spawn) {
     return (
       <aside className="details-panel details-panel--empty">
-        <h2>Selecione um marcador</h2>
-        <p>Clique em um Digimon no mapa ou use a busca global para abrir detalhes completos.</p>
+        <h2>Select a marker</h2>
+        <p>Click a Digimon on the map or use global search to open full details.</p>
       </aside>
     )
   }
@@ -29,7 +29,7 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
   const detailUrl = `/digimons/${spawn.slug}`
   const shareUrl = buildMapUrl(spawn, state)
   const details = spawn.details
-  const type = typeof details?.type === 'string' ? details.type : undefined
+  const type = summary?.types[0] ?? (typeof details?.type === 'string' ? details.type : undefined)
   const attribute = typeof details?.attribute === 'string' ? details.attribute : undefined
   const strengths = Array.isArray(details?.strengths) ? details.strengths.filter((item): item is string => typeof item === 'string') : []
   const weaknesses = Array.isArray(details?.weaknesses) ? details.weaknesses.filter((item): item is string => typeof item === 'string') : []
@@ -49,10 +49,10 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
       <div className="flag-row">
         {spawn.isAggressive ? (
           <span className="status status--danger">
-            <ShieldAlert size={16} /> Agressivo
+            <ShieldAlert size={16} /> Aggressive
           </span>
         ) : (
-          <span className="status">Nao agressivo</span>
+          <span className="status">Not aggressive</span>
         )}
         {spawn.evol ? (
           <span className="status status--special">
@@ -63,43 +63,43 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
 
       <dl className="details-grid">
         <div>
-          <dt>Mapa</dt>
+          <dt>Map</dt>
           <dd>{spawn.localizedMapName}</dd>
         </div>
         <div>
-          <dt>Regiao</dt>
+          <dt>Region</dt>
           <dd>{spawn.localizedRegionName}</dd>
         </div>
         <div>
-          <dt>Tipo</dt>
-          <dd>{type || 'Nao informado'}</dd>
+          <dt>Type</dt>
+          <dd>{type || 'Not listed'}</dd>
         </div>
         <div>
-          <dt>Atributo</dt>
-          <dd>{attribute || 'Nao informado'}</dd>
+          <dt>Attribute</dt>
+          <dd>{attribute || 'Not listed'}</dd>
         </div>
         <div>
-          <dt>Forcas</dt>
+          <dt>Strengths</dt>
           <dd>{valueList(strengths)}</dd>
         </div>
         <div>
-          <dt>Fraquezas</dt>
+          <dt>Weaknesses</dt>
           <dd>{valueList(weaknesses)}</dd>
         </div>
       </dl>
 
       <section>
-        <h3>Itens derrubados</h3>
+        <h3>Drops</h3>
         <div className="chip-list">
-          {spawn.items.length ? spawn.items.map((item) => <span key={item}>{item}</span>) : <span>Nenhum item listado</span>}
+          {spawn.displayItems.length ? spawn.displayItems.map((item) => <span key={item}>{item}</span>) : <span>No drops listed</span>}
         </div>
       </section>
 
       {summary ? (
         <section>
-          <h3>Outras aparicoes</h3>
+          <h3>Other appearances</h3>
           <p>
-            {summary.spawnCount} spawns em {summary.mapCount} mapas. Niveis encontrados: {summary.levels.join(', ')}.
+            {summary.spawnCount} spawns across {summary.mapCount} maps. Known levels: {summary.levels.join(', ')}.
           </p>
           <div className="location-list">
             {summary.spawns.slice(0, 9).map((location) => (
@@ -113,12 +113,12 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
 
       <div className="details-actions">
         <button type="button" onClick={() => onCenter(spawn)}>
-          <Crosshair size={16} /> Centralizar
+          <Crosshair size={16} /> Center
         </button>
         <button type="button" onClick={() => navigator.clipboard?.writeText(`${location.origin}${location.pathname}#${shareUrl}`)}>
-          <LinkIcon size={16} /> Copiar link
+          <LinkIcon size={16} /> Copy link
         </button>
-        <Link to={detailUrl}>Pagina do Digimon</Link>
+        <Link to={detailUrl}>Digimon page</Link>
       </div>
     </aside>
   )

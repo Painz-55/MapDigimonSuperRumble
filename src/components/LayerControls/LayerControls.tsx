@@ -10,12 +10,12 @@ interface LayerControlsProps {
 }
 
 const layerLabels: Array<[keyof VisibleLayers, string]> = [
-  ['monsters', 'Monstros'],
-  ['aggressive', 'Agressivos'],
-  ['evolution', 'Evolucao'],
-  ['portals', 'Portais'],
+  ['monsters', 'Monsters'],
+  ['aggressive', 'Aggressive'],
+  ['evolution', 'Evolution'],
+  ['portals', 'Portals'],
   ['warps', 'Warps'],
-  ['shops', 'Lojas'],
+  ['shops', 'Shops'],
   ['overflows', 'Overflow'],
   ['dungeons', 'Dungeons'],
   ['datacubes', 'Data Cubes'],
@@ -33,10 +33,10 @@ export function LayerControls({
   const setFilter = (key: keyof MonsterFilters, value: string | boolean) => onFiltersChange({ ...filters, [key]: value })
 
   return (
-    <section className="panel layer-panel" aria-label="Camadas e filtros">
+    <section className="panel layer-panel" aria-label="Layers and filters">
       <div className="panel__header">
-        <h2>Camadas</h2>
-        <span>{`${visibleCount} de ${totalCount} monstros visiveis`}</span>
+        <h2>Layers</h2>
+        <span>{`${visibleCount} of ${totalCount} monsters visible`}</span>
       </div>
 
       <div className="layer-grid">
@@ -48,43 +48,43 @@ export function LayerControls({
         ))}
       </div>
 
-      <div className="quick-actions" aria-label="Acoes rapidas de filtros">
+      <div className="quick-actions" aria-label="Filter shortcuts">
         <button type="button" onClick={() => onLayersChange(Object.fromEntries(layerLabels.map(([key]) => [key, true])) as unknown as VisibleLayers)}>
-          Marcar todos
+          Select all
         </button>
         <button type="button" onClick={() => onLayersChange(Object.fromEntries(layerLabels.map(([key]) => [key, false])) as unknown as VisibleLayers)}>
-          Desmarcar todos
+          Clear all
         </button>
         <button type="button" onClick={() => onLayersChange({ ...layers, monsters: true, portals: false, warps: false, shops: false, overflows: false, dungeons: false, datacubes: false })}>
-          Somente monstros
+          Monsters only
         </button>
         <button type="button" onClick={() => onFiltersChange({ ...filters, aggressiveOnly: true, evolutionOnly: false })}>
-          Somente agressivos
+          Aggressive only
         </button>
         <button type="button" onClick={() => onFiltersChange({ ...filters, aggressiveOnly: false, evolutionOnly: true })}>
-          Somente evolucao
+          Evolution only
         </button>
       </div>
 
       <div className="filter-grid">
         <label>
-          Nome
+          Name
           <input value={filters.name} onChange={(event) => setFilter('name', event.target.value)} />
         </label>
         <label>
-          Nivel min.
+          Min level
           <input type="number" value={filters.minLevel} onChange={(event) => setFilter('minLevel', event.target.value)} />
         </label>
         <label>
-          Nivel max.
+          Max level
           <input type="number" value={filters.maxLevel} onChange={(event) => setFilter('maxLevel', event.target.value)} />
         </label>
         <label>
-          HP min.
+          Min HP
           <input type="number" value={filters.minHp} onChange={(event) => setFilter('minHp', event.target.value)} />
         </label>
         <label>
-          HP max.
+          Max HP
           <input type="number" value={filters.maxHp} onChange={(event) => setFilter('maxHp', event.target.value)} />
         </label>
         <label>
@@ -92,17 +92,17 @@ export function LayerControls({
           <input value={filters.item} onChange={(event) => setFilter('item', event.target.value)} />
         </label>
         <label>
-          Tipo
+          Type
           <input value={filters.type} onChange={(event) => setFilter('type', event.target.value)} />
         </label>
         <label>
-          Atributo
+          Attribute
           <input value={filters.attribute} onChange={(event) => setFilter('attribute', event.target.value)} />
         </label>
       </div>
 
       <button className="button button--wide" type="button" onClick={() => onFiltersChange({ name: '', minLevel: '', maxLevel: '', minHp: '', maxHp: '', item: '', type: '', attribute: '', aggressiveOnly: false, evolutionOnly: false })}>
-        Limpar filtros
+        Reset filters
       </button>
     </section>
   )

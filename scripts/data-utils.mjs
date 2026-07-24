@@ -27,7 +27,7 @@ export async function writeJson(path, value) {
 export async function fetchJson(url) {
   const response = await fetch(url, { headers: { accept: 'application/json' } });
   if (!response.ok) {
-    throw new Error(`Falha ao baixar ${url}: HTTP ${response.status}`);
+    throw new Error(`Failed to download ${url}: HTTP ${response.status}`);
   }
   return response.json();
 }

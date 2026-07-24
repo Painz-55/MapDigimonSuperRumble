@@ -48,14 +48,14 @@ export function DigimonIndexPage() {
   return (
     <main className="page-shell">
       <header className="page-title">
-        <h1>Indice completo de Digimons</h1>
-        <p>{data.digimons.length} Digimons unicos encontrados em {data.spawns.length} spawns preservados.</p>
+        <h1>Complete Digimon Index</h1>
+        <p>{data.digimons.length} unique Digimons found across {data.spawns.length} preserved spawns.</p>
       </header>
       <section className="panel index-filters">
-        <input placeholder="Nome" value={name} onChange={(event) => setName(event.target.value)} />
-        <input placeholder="Item especifico" value={item} onChange={(event) => setItem(event.target.value)} />
+        <input placeholder="Name" value={name} onChange={(event) => setName(event.target.value)} />
+        <input placeholder="Specific item" value={item} onChange={(event) => setItem(event.target.value)} />
         <select value={region} onChange={(event) => setRegion(event.target.value)}>
-          <option value="">Todas as regioes</option>
+          <option value="">All regions</option>
           {regions.map(([key, label]) => (
             <option key={key} value={key}>
               {label}
@@ -63,7 +63,7 @@ export function DigimonIndexPage() {
           ))}
         </select>
         <select value={mapKey} onChange={(event) => setMapKey(event.target.value)}>
-          <option value="">Todos os mapas</option>
+          <option value="">All maps</option>
           {data.maps.map((map) => (
             <option key={map.key} value={map.key}>
               {map.localizedName}
@@ -71,21 +71,21 @@ export function DigimonIndexPage() {
           ))}
         </select>
         <select value={sort} onChange={(event) => setSort(event.target.value as SortKey)}>
-          <option value="name">Nome</option>
-          <option value="minLevel">Menor nivel</option>
-          <option value="maxLevel">Maior nivel</option>
-          <option value="mapCount">Quantidade de mapas</option>
-          <option value="spawnCount">Quantidade de spawns</option>
+          <option value="name">Name</option>
+          <option value="minLevel">Lowest level</option>
+          <option value="maxLevel">Highest level</option>
+          <option value="mapCount">Map count</option>
+          <option value="spawnCount">Spawn count</option>
           <option value="hp">HP</option>
-          <option value="aggressive">Agressivos primeiro</option>
+          <option value="aggressive">Aggressive first</option>
         </select>
         <label className="check-row">
           <input type="checkbox" checked={aggressive} onChange={(event) => setAggressive(event.target.checked)} />
-          Agressivos
+          Aggressive
         </label>
         <label className="check-row">
           <input type="checkbox" checked={evolution} onChange={(event) => setEvolution(event.target.checked)} />
-          Evolucao
+          Evolution
         </label>
       </section>
       <section className="digimon-grid">
@@ -94,11 +94,11 @@ export function DigimonIndexPage() {
             <ImageWithFallback src={summary.image} alt={summary.name} className="digimon-card__image" manifest={data.assetsManifest} />
             <h2>{summary.name}</h2>
             <p>Lv. {summary.minLevel}-{summary.maxLevel} · HP {summary.minHp}-{summary.maxHp}</p>
-            <p>{summary.mapCount} mapas · {summary.spawnCount} spawns</p>
+            <p>{summary.mapCount} maps · {summary.spawnCount} spawns</p>
             <div className="chip-list">
-              {summary.hasAggressive ? <span>Agressivo</span> : null}
-              {summary.hasEvolution ? <span>Evolucao</span> : null}
-              {summary.levels.length > 1 ? <span>Multiplos niveis</span> : null}
+              {summary.hasAggressive ? <span>Aggressive</span> : null}
+              {summary.hasEvolution ? <span>Evolution</span> : null}
+              {summary.levels.length > 1 ? <span>Multiple levels</span> : null}
             </div>
           </Link>
         ))}

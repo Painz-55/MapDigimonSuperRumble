@@ -30,7 +30,7 @@ async function main() {
 
   for (const [mapKey, map] of Object.entries(maps)) {
     if (!map.backgroundImage || !isUrl(map.backgroundImage)) {
-      errors.push(`${mapKey}: backgroundImage ausente ou invalido.`);
+      errors.push(`${mapKey}: backgroundImage is missing or invalid.`);
     }
     urls.set(map.backgroundImage, (urls.get(map.backgroundImage) || 0) + 1);
 
@@ -42,12 +42,12 @@ async function main() {
       const prefix = `${mapKey}.mobs[${index}]`;
       uniqueDigimons.add(mob.name || mob.id);
       if (!validateCoordinate(mob.top) || !validateCoordinate(mob.left)) {
-        errors.push(`${prefix}: coordenadas invalidas.`);
+        errors.push(`${prefix}: invalid coordinates.`);
       }
-      if (!mob.src || !isUrl(mob.src)) errors.push(`${prefix}: src ausente ou invalido.`);
-      if (!Number.isFinite(mob.level)) errors.push(`${prefix}: level invalido.`);
-      if (!Number.isFinite(mob.hp)) errors.push(`${prefix}: hp invalido.`);
-      if (!Array.isArray(mob.items)) errors.push(`${prefix}: items deve ser lista.`);
+      if (!mob.src || !isUrl(mob.src)) errors.push(`${prefix}: src is missing or invalid.`);
+      if (!Number.isFinite(mob.level)) errors.push(`${prefix}: invalid level.`);
+      if (!Number.isFinite(mob.hp)) errors.push(`${prefix}: invalid hp.`);
+      if (!Array.isArray(mob.items)) errors.push(`${prefix}: items must be an array.`);
       if (mob.isAggressive === true) aggressive += 1;
       if (typeof mob.evol === 'string' && mob.evol.trim()) evolutions += 1;
       urls.set(mob.src, (urls.get(mob.src) || 0) + 1);
@@ -58,33 +58,33 @@ async function main() {
       markers.forEach((marker, index) => {
         const prefix = `${mapKey}.${key}[${index}]`;
         if (!validateCoordinate(marker.top) || !validateCoordinate(marker.left)) {
-          errors.push(`${prefix}: coordenadas invalidas.`);
+          errors.push(`${prefix}: invalid coordinates.`);
         }
-        if (!marker.src || !isUrl(marker.src)) errors.push(`${prefix}: src ausente ou invalido.`);
+        if (!marker.src || !isUrl(marker.src)) errors.push(`${prefix}: src is missing or invalid.`);
         urls.set(marker.src, (urls.get(marker.src) || 0) + 1);
       });
     }
   }
 
   if (Object.keys(maps).length < EXPECTED_MAPS) {
-    errors.push(`Quantidade de mapas menor que o esperado: ${Object.keys(maps).length}/${EXPECTED_MAPS}.`);
+    errors.push(`Map count is lower than expected: ${Object.keys(maps).length}/${EXPECTED_MAPS}.`);
   }
-  if (!Object.keys(digimons).length) errors.push('digimon.json esta vazio.');
+  if (!Object.keys(digimons).length) errors.push('digimon.json is empty.');
 
   const duplicatedUrls = [...urls.values()].filter((count) => count > 1).length;
-  if (duplicatedUrls) warnings.push(`URLs duplicadas encontradas: ${duplicatedUrls}.`);
+  if (duplicatedUrls) warnings.push(`Duplicated URLs found: ${duplicatedUrls}.`);
 
-  console.log(`Mapas carregados: ${Object.keys(maps).length}`);
-  console.log(`Spawns carregados: ${spawns}`);
-  console.log(`Digimons unicos: ${uniqueDigimons.size}`);
-  console.log(`Mapas sem monstros: ${noMobs.length}${noMobs.length ? ` (${noMobs.join(', ')})` : ''}`);
-  console.log(`Spawns agressivos: ${aggressive}`);
-  console.log(`Eventos de evolucao: ${evolutions}`);
-  console.log(`Erros criticos: ${errors.length}`);
-  console.log(`Avisos: ${warnings.length}`);
+  console.log(`Maps loaded: ${Object.keys(maps).length}`);
+  console.log(`Spawns loaded: ${spawns}`);
+  console.log(`Unique Digimons: ${uniqueDigimons.size}`);
+  console.log(`Maps without monsters: ${noMobs.length}${noMobs.length ? ` (${noMobs.join(', ')})` : ''}`);
+  console.log(`Aggressive spawns: ${aggressive}`);
+  console.log(`Evolution events: ${evolutions}`);
+  console.log(`Critical errors: ${errors.length}`);
+  console.log(`Warnings: ${warnings.length}`);
 
-  for (const warning of warnings) console.warn(`Aviso: ${warning}`);
-  for (const error of errors) console.error(`Erro: ${error}`);
+  for (const warning of warnings) console.warn(`Warning: ${warning}`);
+  for (const error of errors) console.error(`Error: ${error}`);
 
   if (errors.length) process.exit(1);
 }

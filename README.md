@@ -1,62 +1,62 @@
-# Digimon Super Rumble - Mapa de Monstros
+# Digimon Super Rumble - Monster Map
 
-Ferramenta estatica, nao oficial e em portugues brasileiro para consultar mapas, spawns, monstros, portais,
-warps, lojas, dungeons, Overflow e Data Cubes de Digimon Super Rumble.
+A static, unofficial English-language tool for browsing Digimon Super Rumble maps, monsters, spawn points, portals,
+warps, shops, dungeons, Overflow points, and Data Cubes.
 
-## Capturas
+## Screenshots
 
-Execute `npm run dev` e abra o mapa para gerar capturas atuais da interface.
+Run `npm run dev` and open the map to capture the current interface.
 
-## Tecnologias
+## Technology
 
-- React, TypeScript e Vite
-- React Router com `HashRouter`, para funcionar no GitHub Pages sem fallback de servidor
-- `react-zoom-pan-pinch` para zoom, pan, roda do mouse e toque
-- Zod para validacao em tempo de execucao
-- Vitest e Testing Library
-- ESLint e Prettier
+- React, TypeScript, and Vite
+- React Router with `HashRouter`, so GitHub Pages works without server rewrites
+- `react-zoom-pan-pinch` for mouse wheel, pinch, zoom, and pan
+- Zod for runtime data validation
+- Vitest and Testing Library
+- ESLint and Prettier
 
-## Requisitos
+## Requirements
 
-- Node.js 20 ou superior
+- Node.js 24 or newer
 - npm
 
-## Instalacao
+## Installation
 
 ```bash
 npm install
 ```
 
-## Sincronizacao dos dados
+## Data Sync
 
 ```bash
 npm run sync-data
 ```
 
-O comando baixa `map.json` e `digimon.json`, valida JSON e grava:
+This downloads `map.json` and `digimon.json`, validates the JSON, and writes:
 
 - `public/data/map.json`
 - `public/data/digimon.json`
 - `public/data/data-manifest.json`
 
-Caso a sincronizacao remota falhe, mantenha a ultima copia local valida em `public/data`.
+If the remote sync fails, keep the latest valid local copy in `public/data`.
 
-## Sincronizacao dos recursos
+## Asset Sync
 
 ```bash
 npm run sync-assets
 ```
 
-O comando baixa imagens de mapas, Digimons e marcadores para `public/assets` e gera
-`public/data/assets-manifest.json`. A URL remota segue como fallback.
+This downloads map, Digimon, and marker images to `public/assets` and creates
+`public/data/assets-manifest.json`. Remote URLs remain available as fallbacks.
 
-## Execucao local
+## Local Development
 
 ```bash
 npm run dev
 ```
 
-## Testes e validacao
+## Tests And Validation
 
 ```bash
 npm run validate-data
@@ -64,67 +64,61 @@ npm run test
 npm run build
 ```
 
-## Publicacao no GitHub Pages
+## GitHub Pages Deployment
 
-O Vite usa `VITE_BASE_PATH` ou o nome do repositorio vindo de `GITHUB_REPOSITORY` para definir `base`.
-Para este repositorio, use:
+Vite uses `VITE_BASE_PATH` or the repository name from `GITHUB_REPOSITORY` to set `base`.
 
-```bash
-VITE_BASE_PATH=/SiteGitHubDigimonSR/ npm run build
-```
+The workflow in `.github/workflows/deploy.yml` installs dependencies, validates data, runs tests, builds the app, and
+publishes `dist`.
 
-O workflow em `.github/workflows/deploy.yml` instala dependencias, valida os dados, roda testes, gera o build e publica
-`dist`.
+## Project Structure
 
-## Estrutura
+- `scripts/`: sync and validation scripts
+- `public/data/`: real local data
+- `public/assets/`: optional synchronized assets
+- `src/components/`: reusable UI
+- `src/pages/`: main routes
+- `src/services/`: loading, validation, normalization, search, and URL state
+- `src/i18n/`: locale helpers
+- `tests/`: required baseline tests
 
-- `scripts/`: sincronizacao e validacao
-- `public/data/`: dados reais locais
-- `public/assets/`: recursos sincronizados opcionalmente
-- `src/components/`: UI reutilizavel
-- `src/pages/`: rotas principais
-- `src/services/`: carregamento, validacao, normalizacao, busca, URLs
-- `src/i18n/`: base de idiomas
-- `tests/`: testes basicos obrigatorios
+## Data Source
 
-## Fonte dos dados
+Primary source: `dsr1111/dsr`.
 
-Fonte principal: `dsr1111/dsr`.
-
-Espelhos usados:
+Mirrors used by the sync script:
 
 - `https://media.dsrwiki.com/data/csv/map.json`
 - `https://media.dsrwiki.com/data/csv/digimon.json`
 
-Veja `DATA_SOURCE.md` para as contagens reais e decisoes de normalizacao.
+See `DATA_SOURCE.md` for real counts and normalization decisions.
 
-## Aviso
+## Disclaimer
 
-Este projeto e uma ferramenta nao oficial. Nomes, imagens, marcas e dados pertencem aos respectivos detentores de
-direitos.
+This project is unofficial. Names, images, trademarks, and data belong to their respective rights holders.
 
-## Traducoes
+## Adding Translations
 
-Edite:
+Edit:
 
-- `src/i18n/pt-BR.ts`
-- `src/i18n/ko-KR.ts`
-- `src/i18n/en-US.ts`
 - `src/data/mapRegions.ts`
+- `src/data/monsterTranslations.ts`
+- `src/data/gameTextTranslations.ts`
+- `src/i18n/en-US.ts`
 
-Quando nao houver traducao, o nome original e exibido.
+When a source key has no translation, the original value is preserved internally and can still be searched.
 
-## Novos mapas
+## New Maps
 
-Mapas novos presentes no JSON entram automaticamente em "Outros mapas". Para organizar e traduzir, adicione o mapa em
+New maps in the source JSON are imported automatically into "Other Maps". To organize and translate one, add it to
 `src/data/mapRegions.ts`.
 
-## Corrigir marcador
+## Fixing A Marker
 
-Corrija a fonte de dados quando possivel. Para uma correcao local temporaria, ajuste o JSON em `public/data/map.json`
-preservando `top`, `left`, `src`, `id`, `name`, `level`, `hp` e `items`.
+Fix the source data when possible. For a temporary local correction, edit `public/data/map.json` while preserving
+`top`, `left`, `src`, `id`, `name`, `level`, `hp`, and `items`.
 
-## Substituir imagens remotas
+## Replacing Remote Images
 
-Rode `npm run sync-assets` e substitua os arquivos em `public/assets`. O manifesto relaciona cada URL remota ao caminho
-local, mantendo fallback remoto.
+Run `npm run sync-assets` and replace files in `public/assets`. The manifest maps each remote URL to its local path
+while preserving the remote fallback.

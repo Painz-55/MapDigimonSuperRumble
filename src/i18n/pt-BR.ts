@@ -1,8 +1,7 @@
 export const ptBR = {
-  appName: 'Digimon Super Rumble - Mapa de Monstros',
-  unofficial:
-    'Ferramenta nao oficial. Nomes, imagens e marcas pertencem aos respectivos detentores de direitos.',
-  searchPlaceholder: 'Buscar Digimon, mapa, item ou ID...',
-  allMaps: 'Todos os mapas',
-  noResults: 'Nenhum resultado encontrado',
+  appName: 'Digimon Super Rumble - Monster Map',
+  unofficial: 'Unofficial tool. Names, images, and trademarks belong to their respective rights holders.',
+  searchPlaceholder: 'Search Digimon, map, item, or ID...',
+  allMaps: 'All maps',
+  noResults: 'No results found',
 }

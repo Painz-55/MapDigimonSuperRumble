@@ -6,36 +6,30 @@ import { SearchBar } from '../SearchBar/SearchBar'
 interface AppHeaderProps {
   data: NormalizedData | null
   locale: Locale
-  setLocale: (locale: Locale) => void
   theme: 'dark' | 'light'
   setTheme: (theme: 'dark' | 'light') => void
 }
 
-export function AppHeader({ data, locale, setLocale, theme, setTheme }: AppHeaderProps) {
+export function AppHeader({ data, locale, theme, setTheme }: AppHeaderProps) {
   return (
     <header className="app-header">
-      <Link to="/" className="brand" aria-label="Abrir mapa inicial">
+      <Link to="/" className="brand" aria-label="Open the default map">
         <span className="brand__mark">DSR</span>
         <span>
-          <strong>Mapa de Monstros</strong>
+          <strong>Monster Map</strong>
           <small>Digimon Super Rumble</small>
         </span>
       </Link>
       {data ? <SearchBar data={data} locale={locale} /> : null}
-      <nav className="app-nav" aria-label="Navegacao principal">
-        <NavLink to="/mapa">Mapa</NavLink>
+      <nav className="app-nav" aria-label="Main navigation">
+        <NavLink to="/map">Map</NavLink>
         <NavLink to="/digimons">Digimons</NavLink>
-        <NavLink to="/sobre">Sobre</NavLink>
+        <NavLink to="/about">About</NavLink>
       </nav>
-      <select value={locale} onChange={(event) => setLocale(event.target.value as Locale)} aria-label="Idioma">
-        <option value="pt-BR">PT</option>
-        <option value="ko-KR">KO</option>
-        <option value="en-US">EN</option>
-      </select>
       <button
         type="button"
         className="icon-button"
-        aria-label={theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'}
+        aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >
         {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}

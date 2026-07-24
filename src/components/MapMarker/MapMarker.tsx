@@ -36,7 +36,7 @@ export function MonsterMarker({
       type="button"
       className={classes}
       style={{ top: spawn.top, left: spawn.left }}
-      aria-label={`${spawn.displayName}, nivel ${spawn.level}, ${spawn.localizedMapName}`}
+      aria-label={`${spawn.displayName}, level ${spawn.level}, ${spawn.localizedMapName}`}
       title={`${spawn.displayName} Lv. ${spawn.level}`}
       onClick={(event) => {
         event.stopPropagation()

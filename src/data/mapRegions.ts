@@ -31,7 +31,7 @@ export const knownRegions: KnownRegion[] = [
     ko: '서버대륙',
     en: 'Server Continent',
     maps: [
-      { key: '사막 지대', pt: 'Regiao Desertica', en: 'Desert Region' },
+      { key: '사막 지대', pt: 'Desert Region', en: 'Desert Region' },
       { key: '어둠성 계곡', pt: 'Vale do Castelo das Trevas', en: 'Dark Castle Valley' },
       { key: '개굴몬 성 1F', pt: 'Castelo de Gekomon, 1o andar', en: 'Gekomon Castle 1F' },
       { key: '개굴몬 성 2F', pt: 'Castelo de Gekomon, 2o andar', en: 'Gekomon Castle 2F' },
@@ -57,7 +57,7 @@ export const knownRegions: KnownRegion[] = [
   {
     key: 'spiral-mountain',
     pt: 'Montanha Espiral',
-    ko: '스파일럴 마운틴',
+    ko: '스파이럴 마운틴',
     en: 'Spiral Mountain',
     maps: [
       { key: '네트워크 바다', pt: 'Mar da Rede', en: 'Network Sea' },
@@ -65,13 +65,13 @@ export const knownRegions: KnownRegion[] = [
       { key: '강철 도시', pt: 'Cidade de Aco', en: 'Steel City' },
       { key: '강철 도시 지하', pt: 'Subsolo da Cidade de Aco', en: 'Steel City Underground' },
       { key: '어둠의 권역', pt: 'Dominio das Trevas', en: 'Dark Area' },
-      { key: '스파일럴 마운틴 정상', pt: 'Topo da Montanha Espiral', en: 'Spiral Mountain Summit' },
+      { key: '스파이럴 마운틴 정상', pt: 'Spiral Mountain Summit', en: 'Spiral Mountain Summit' },
       { key: '???', pt: 'Area desconhecida', en: 'Unknown Area' },
     ],
   },
   {
     key: 'data-world',
-    pt: 'Mundo dos Dados',
+    pt: 'Data World',
     ko: '데이터 세계',
     en: 'Data World',
     maps: [
@@ -84,7 +84,7 @@ export const knownRegions: KnownRegion[] = [
 
 export const otherRegion = {
   key: 'other',
-  pt: 'Outros mapas',
+  pt: 'Other Maps',
   ko: '기타',
   en: 'Other Maps',
 }

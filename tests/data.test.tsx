@@ -69,7 +69,7 @@ describe('filters and search', () => {
   })
 
   it('search ignores case and accents', () => {
-    expect(normalizeSearchText('Estacao de Metro')).toBe(normalizeSearchText('estação DE metrô'))
+    expect(normalizeSearchText('Pokemon Cafe')).toBe(normalizeSearchText('Pok\u00e9mon CAF\u00c9'))
   })
 
   it('searches by original monster name', () => {
@@ -81,13 +81,33 @@ describe('filters and search', () => {
     expect(data.spawns.find((spawn) => spawn.name === '츄몬')?.displayName).toBe('Chuumon')
     expect(data.digimons.every((summary) => !/[가-힣]/.test(summary.name))).toBe(true)
   })
+
+  it('keeps display-facing loaded data in English', () => {
+    const korean = /[가-힣]/
+    const displayStrings = [
+      ...data.maps.flatMap((map) => [
+        map.localizedName,
+        map.localizedRegionName,
+        ...map.markers.map((marker) => marker.tooltip ?? ''),
+        ...map.spawns.flatMap((spawn) => [
+          spawn.displayName,
+          spawn.displayId,
+          spawn.displayEvolutionName ?? '',
+          ...spawn.displayItems,
+        ]),
+      ]),
+      ...data.digimons.flatMap((summary) => [summary.name, ...summary.types, ...summary.attributes, ...summary.items]),
+    ]
+
+    expect(displayStrings.filter((value) => korean.test(value))).toEqual([])
+  })
 })
 
 describe('routing and rendering helpers', () => {
   it('builds shareable URLs and restores layer state', () => {
     const spawn = data.spawns[0]
     const url = buildMapUrl(spawn, { zoom: 1.5, positionX: 10, positionY: -20, visibleLayers: defaultVisibleLayers })
-    expect(url).toContain('/mapa?')
+    expect(url).toContain('/map?')
     expect(url).toContain('spawn=')
     expect(parseLayers('monsters,portals', defaultVisibleLayers).warps).toBe(false)
   })

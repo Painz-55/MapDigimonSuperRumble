@@ -5,32 +5,32 @@ export function AboutPage() {
   return (
     <main className="page-shell">
       <header className="page-title">
-        <h1>Sobre o projeto</h1>
+        <h1>About the project</h1>
         <p>
-          Ferramenta estatica e nao oficial em portugues brasileiro para consultar mapas, spawns, portais,
-          warps, lojas, dungeons, Overflow e Data Cubes de Digimon Super Rumble.
+          A static, unofficial tool for browsing Digimon Super Rumble maps, spawns, portals, warps, shops,
+          dungeons, Overflow points, and Data Cubes.
         </p>
       </header>
       <section className="panel">
-        <h2>Fonte dos dados</h2>
+        <h2>Data source</h2>
         <p>
-          Os dados sao sincronizados do repositorio dsr1111/dsr, com copias locais em public/data para evitar
-          dependencia de API em tempo de execucao.
+          Data is synchronized from the dsr1111/dsr repository, with local copies in public/data so the published
+          site does not depend on a runtime API.
         </p>
       </section>
       {data?.manifest ? (
         <section className="stats-grid">
-          <article><strong>{data.manifest.mapCount}</strong><span>mapas</span></article>
+          <article><strong>{data.manifest.mapCount}</strong><span>maps</span></article>
           <article><strong>{data.manifest.totalSpawnCount}</strong><span>spawns</span></article>
-          <article><strong>{data.manifest.uniqueDigimonCount}</strong><span>Digimons unicos</span></article>
-          <article><strong>{data.manifest.aggressiveCount}</strong><span>agressivos</span></article>
+          <article><strong>{data.manifest.uniqueDigimonCount}</strong><span>unique Digimons</span></article>
+          <article><strong>{data.manifest.aggressiveCount}</strong><span>aggressive spawns</span></article>
         </section>
       ) : null}
       <section className="panel">
-        <h2>Aviso</h2>
+        <h2>Disclaimer</h2>
         <p>
-          Este projeto nao e afiliado, endossado ou patrocinado pelos detentores de direitos de Digimon Super
-          Rumble. Nomes, imagens, marcas e dados pertencem aos seus respectivos proprietarios.
+          This project is not affiliated with, endorsed by, or sponsored by the Digimon Super Rumble rights holders.
+          Names, images, trademarks, and data belong to their respective owners.
         </p>
       </section>
     </main>

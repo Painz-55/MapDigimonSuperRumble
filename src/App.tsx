@@ -15,7 +15,7 @@ const DigimonDetailsPage = lazy(() =>
 const AboutPage = lazy(() => import('./pages/AboutPage').then((module) => ({ default: module.AboutPage })))
 
 function AppShell() {
-  const { data, locale, setLocale, loading, error } = useDsrData()
+  const { data, locale, loading, error } = useDsrData()
   const [theme, setTheme] = useState<'dark' | 'light'>(() =>
     localStorage.getItem('dsr-theme') === 'light' ? 'light' : 'dark',
   )
@@ -27,23 +27,25 @@ function AppShell() {
 
   return (
     <HashRouter>
-      <AppHeader data={data} locale={locale} setLocale={setLocale} theme={theme} setTheme={setTheme} />
+      <AppHeader data={data} locale={locale} theme={theme} setTheme={setTheme} />
       {loading ? <LoadingState /> : null}
       {error ? <ErrorState message={error} /> : null}
       {!loading && !error ? (
         <Suspense fallback={<LoadingState />}>
           <Routes>
-            <Route path="/" element={<Navigate to="/mapa" replace />} />
-            <Route path="/mapa" element={<MapPage />} />
+            <Route path="/" element={<Navigate to="/map" replace />} />
+            <Route path="/map" element={<MapPage />} />
+            <Route path="/mapa" element={<Navigate to="/map" replace />} />
             <Route path="/digimons" element={<DigimonIndexPage />} />
             <Route path="/digimons/:slug" element={<DigimonDetailsPage />} />
-            <Route path="/sobre" element={<AboutPage />} />
-            <Route path="*" element={<Navigate to="/mapa" replace />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/sobre" element={<Navigate to="/about" replace />} />
+            <Route path="*" element={<Navigate to="/map" replace />} />
           </Routes>
         </Suspense>
       ) : null}
       <footer className="app-footer">
-        Ferramenta nao oficial. Nomes e imagens pertencem aos respectivos detentores de direitos.
+        Unofficial tool. Names and images belong to their respective rights holders.
       </footer>
     </HashRouter>
   )

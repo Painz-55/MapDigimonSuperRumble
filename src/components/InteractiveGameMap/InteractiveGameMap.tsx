@@ -66,45 +66,45 @@ export function InteractiveGameMap({
   const utilityMarkers = useMemo(() => map.markers, [map.markers])
 
   return (
-    <section className="map-shell" aria-label={`Mapa ${map.localizedName}`}>
-      {!mapLoaded ? <div className="map-skeleton">Carregando mapa...</div> : null}
+    <section className="map-shell" aria-label={`${map.localizedName} map`}>
+      {!mapLoaded ? <div className="map-skeleton">Loading map...</div> : null}
       <div className="map-frame" ref={frameRef}>
         <TransformWrapper
           key={map.key}
           initialScale={0.92}
           minScale={0.45}
-          maxScale={4}
+          maxScale={1}
           centerOnInit
           disabled={!dragEnabled}
-          wheel={{ disabled: false, step: 0.12 }}
-          doubleClick={{ disabled: false, step: 0.7 }}
+          wheel={{ disabled: false, step: 0.055 }}
+          doubleClick={{ disabled: false, step: 0.25 }}
           pinch={{ step: 4 }}
           onTransform={(_, state) => onTransformChange(state.scale, state.positionX, state.positionY)}
         >
           {({ zoomIn, zoomOut, resetTransform, centerView }) => (
             <>
-              <div className="map-toolbar" aria-label="Controles do mapa">
-                <button type="button" aria-label="Aproximar" onClick={() => zoomIn()}>
+              <div className="map-toolbar" aria-label="Map controls">
+                <button type="button" aria-label="Zoom in" onClick={() => zoomIn()}>
                   <ZoomIn size={18} />
                 </button>
-                <button type="button" aria-label="Afastar" onClick={() => zoomOut()}>
+                <button type="button" aria-label="Zoom out" onClick={() => zoomOut()}>
                   <ZoomOut size={18} />
                 </button>
-                <button type="button" aria-label="Restaurar zoom" onClick={() => resetTransform()}>
+                <button type="button" aria-label="Reset zoom" onClick={() => resetTransform()}>
                   <RefreshCw size={18} />
                 </button>
-                <button type="button" aria-label="Centralizar mapa" onClick={() => centerView(0.92)}>
+                <button type="button" aria-label="Center map" onClick={() => centerView(0.92)}>
                   <Move size={18} />
                 </button>
-                <button type="button" aria-label="Tela cheia" onClick={() => frameRef.current?.requestFullscreen()}>
+                <button type="button" aria-label="Fullscreen" onClick={() => frameRef.current?.requestFullscreen()}>
                   <Maximize size={18} />
                 </button>
               </div>
               <TransformComponent wrapperClass="transform-wrapper" contentClass="transform-content">
-                <div className="map-canvas" role="img" aria-label={`Imagem e marcadores de ${map.localizedName}`}>
+                <div className="map-canvas" role="img" aria-label={`${map.localizedName} image and markers`}>
                   <ImageWithFallback
                     src={map.backgroundImage}
-                    alt={`Mapa ${map.localizedName}`}
+                    alt={`${map.localizedName} map`}
                     className="map-background"
                     manifest={manifest}
                   />
