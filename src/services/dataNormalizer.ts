@@ -1,5 +1,5 @@
 import { knownRegions, mapToRegion, otherRegion } from '../data/mapRegions'
-import { getLocalizedMapName, getLocalizedRegionName } from '../i18n'
+import { getLocalizedMapName, getLocalizedMonsterName, getLocalizedRegionName } from '../i18n'
 import type {
   AssetsManifest,
   DataManifest,
@@ -76,10 +76,14 @@ export function normalizeData(
 
     const mapSpawns = (source.mobs ?? []).map((spawn, index) => {
       const speciesKey = spawn.name || spawn.id
+      const displayName = getLocalizedMonsterName(speciesKey)
       const details = sourceDigimons[speciesKey] ?? sourceDigimons[spawn.id]
       const normalized: NormalizedSpawn = {
         ...spawn,
         spawnId: createSpawnId(mapKey, spawn, index),
+        displayName,
+        displayId: getLocalizedMonsterName(spawn.id),
+        displayEvolutionName: spawn.evol ? getLocalizedMonsterName(spawn.evol) : undefined,
         mapKey,
         mapName: mapKey,
         regionKey: regionInfo.regionKey,
@@ -87,7 +91,7 @@ export function normalizeData(
         localizedMapName,
         localizedRegionName,
         speciesKey,
-        slug: slugifyName(speciesKey),
+        slug: slugifyName(displayName),
         details,
       }
       spawns.push(normalized)
@@ -153,8 +157,9 @@ export function buildDigimonSummaries(
       const attribute = getDigimonAttribute(details)
       return {
         speciesKey,
-        slug: slugifyName(speciesKey),
-        name: speciesKey,
+        slug: slugifyName(getLocalizedMonsterName(speciesKey)),
+        name: getLocalizedMonsterName(speciesKey),
+        originalName: speciesKey,
         image: entries[0]?.src ?? '',
         maps: [...new Set(entries.map((spawn) => spawn.mapKey))],
         mapCount: new Set(entries.map((spawn) => spawn.mapKey)).size,

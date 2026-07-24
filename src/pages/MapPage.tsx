@@ -69,7 +69,14 @@ export function MapPage() {
       map?.spawns.find((spawn) => (spawnHash ? createUrlSafeSpawnId(spawn.spawnId) === spawnHash : false)) ??
       map?.spawns.find((spawn) => {
         const levelMatches = Number.isFinite(level) ? spawn.level === level : true
-        return levelMatches && (spawn.speciesKey === monster || spawn.name === monster || spawn.id === monster)
+        return (
+          levelMatches &&
+          (spawn.displayName === monster ||
+            spawn.displayId === monster ||
+            spawn.speciesKey === monster ||
+            spawn.name === monster ||
+            spawn.id === monster)
+        )
       })
     setSelectedSpawnId(selected?.spawnId ?? null)
     setHighlightedSpawnId(selected?.spawnId ?? null)

@@ -4,7 +4,7 @@ import { createUrlSafeSpawnId } from '../utils/spawnIds'
 export function buildMapUrl(spawn: NormalizedSpawn, state?: Partial<MapViewerState>): string {
   const params = new URLSearchParams()
   params.set('map', spawn.mapKey)
-  params.set('monster', spawn.speciesKey)
+  params.set('monster', spawn.displayName)
   params.set('level', String(spawn.level))
   params.set('spawn', createUrlSafeSpawnId(spawn.spawnId))
   if (state?.zoom) params.set('zoom', state.zoom.toFixed(2))

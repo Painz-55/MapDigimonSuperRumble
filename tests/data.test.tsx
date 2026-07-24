@@ -43,7 +43,7 @@ describe('DSR data normalization', () => {
   })
 
   it('groups spawns by Digimon without merging locations', () => {
-    const chuumon = data.digimons.find((summary) => summary.name === '츄몬')
+    const chuumon = data.digimons.find((summary) => summary.name === 'Chuumon')
     expect(chuumon?.spawnCount).toBeGreaterThan(1)
     expect(chuumon?.levels.length).toBeGreaterThan(1)
   })
@@ -74,7 +74,12 @@ describe('filters and search', () => {
 
   it('searches by original monster name', () => {
     const result = searchDigimons(data, '츄몬', 'pt-BR')
-    expect(result[0]?.summary.name).toBe('츄몬')
+    expect(result[0]?.summary.name).toBe('Chuumon')
+  })
+
+  it('displays Digimon names in English', () => {
+    expect(data.spawns.find((spawn) => spawn.name === '츄몬')?.displayName).toBe('Chuumon')
+    expect(data.digimons.every((summary) => !/[가-힣]/.test(summary.name))).toBe(true)
   })
 })
 
@@ -103,7 +108,7 @@ describe('routing and rendering helpers', () => {
         onSelect={() => undefined}
       />,
     )
-    const marker = screen.getByRole('button', { name: new RegExp(spawn.name) })
+    const marker = screen.getByRole('button', { name: new RegExp(spawn.displayName) })
     expect(marker).toHaveStyle({ top: `${spawn.top}px`, left: `${spawn.left}px` })
   })
 })

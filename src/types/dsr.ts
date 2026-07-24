@@ -95,6 +95,9 @@ export type MarkerKind =
 
 export interface NormalizedSpawn extends MonsterSpawn {
   spawnId: string
+  displayName: string
+  displayId: string
+  displayEvolutionName?: string
   mapKey: string
   mapName: string
   regionKey: string
@@ -122,6 +125,7 @@ export interface DigimonSummary {
   speciesKey: string
   slug: string
   name: string
+  originalName: string
   image: string
   maps: string[]
   mapCount: number

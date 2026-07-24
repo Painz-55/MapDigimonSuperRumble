@@ -1,4 +1,5 @@
 import { knownRegions, mapToRegion, otherRegion } from '../data/mapRegions'
+import { getEnglishMonsterName } from '../data/monsterTranslations'
 import type { Locale } from '../types/dsr'
 import { enUS } from './en-US'
 import { koKR } from './ko-KR'
@@ -28,5 +29,5 @@ export function getLocalizedMapName(originalMapName: string, locale: Locale): st
 }
 
 export function getLocalizedMonsterName(originalMonsterName: string): string {
-  return originalMonsterName
+  return getEnglishMonsterName(originalMonsterName)
 }

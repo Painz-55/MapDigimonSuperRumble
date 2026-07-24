@@ -30,7 +30,14 @@ export function filterSpawns(
     if (Number.isFinite(maxLevel) && spawn.level > maxLevel) return false
     if (Number.isFinite(minHp) && spawn.hp < minHp) return false
     if (Number.isFinite(maxHp) && spawn.hp > maxHp) return false
-    if (name && !normalizeSearchText(`${spawn.name} ${spawn.id} ${spawn.speciesKey}`).includes(name)) return false
+    if (
+      name &&
+      !normalizeSearchText(`${spawn.displayName} ${spawn.displayId} ${spawn.name} ${spawn.id} ${spawn.speciesKey}`).includes(
+        name,
+      )
+    ) {
+      return false
+    }
     if (item && !normalizeSearchText(spawn.items.join(' ')).includes(item)) return false
     if (type && !normalizeSearchText(typeof spawn.details?.type === 'string' ? spawn.details.type : '').includes(type)) {
       return false

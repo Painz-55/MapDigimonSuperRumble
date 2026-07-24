@@ -37,10 +37,10 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
   return (
     <aside className="details-panel">
       <div className="details-panel__hero">
-        <ImageWithFallback src={spawn.src} alt={spawn.name} className="details-panel__image" />
+        <ImageWithFallback src={spawn.src} alt={spawn.displayName} className="details-panel__image" />
         <div>
-          <h2>{spawn.name}</h2>
-          {spawn.name !== spawn.id ? <p>Especie: {spawn.id}</p> : <p>ID original: {spawn.id}</p>}
+          <h2>{spawn.displayName}</h2>
+          {spawn.displayName !== spawn.displayId ? <p>Species: {spawn.displayId}</p> : <p>Original ID: {spawn.id}</p>}
           <span className="pill">Lv. {spawn.level}</span>
           <span className="pill">HP {spawn.hp}</span>
         </div>
@@ -56,7 +56,7 @@ export function MonsterDetails({ spawn, summary, state, onCenter }: MonsterDetai
         )}
         {spawn.evol ? (
           <span className="status status--special">
-            <Sparkles size={16} /> Relacionado a evolucao de: {spawn.evol}
+            <Sparkles size={16} /> Evolution event for: {spawn.displayEvolutionName ?? spawn.evol}
           </span>
         ) : null}
       </div>

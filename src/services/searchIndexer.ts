@@ -11,7 +11,9 @@ export interface SearchResult {
 export function buildSearchHaystack(summary: DigimonSummary, locale: Locale): string {
   const fields = [
     summary.name,
+    summary.originalName,
     summary.speciesKey,
+    ...summary.spawns.map((spawn) => `${spawn.name} ${spawn.id} ${spawn.displayName} ${spawn.displayId}`),
     ...summary.maps,
     ...summary.maps.map((map) => getLocalizedMapName(map, locale)),
     ...summary.items,
